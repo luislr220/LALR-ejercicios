@@ -1,0 +1,331 @@
+[
+    {
+        "id": "e9d7f2deb1161867",
+        "type": "tab",
+        "label": "Ejercicio 02",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "6d20919e22e819fc",
+        "type": "mqtt in",
+        "z": "e9d7f2deb1161867",
+        "name": "CPU MQTT",
+        "topic": "iot2/cpu",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "2485a6a2dc589daf",
+        "inputs": 0,
+        "x": 160,
+        "y": 80,
+        "wires": [
+            [
+                "4495ae4ebc379ea3",
+                "5c2e4c326fb51237"
+            ]
+        ]
+    },
+    {
+        "id": "1ba53f8f53e8e773",
+        "type": "mqtt in",
+        "z": "e9d7f2deb1161867",
+        "name": "Memoria MQTT",
+        "topic": "iot2/memoria",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "2485a6a2dc589daf",
+        "inputs": 0,
+        "x": 120,
+        "y": 160,
+        "wires": [
+            [
+                "4495ae4ebc379ea3",
+                "67b8fd5ed5938e84"
+            ]
+        ]
+    },
+    {
+        "id": "44118ec50f3e0295",
+        "type": "mqtt out",
+        "z": "e9d7f2deb1161867",
+        "name": "Máquina MQTT",
+        "topic": "iot2/maquina",
+        "qos": "",
+        "retain": "",
+        "broker": "2485a6a2dc589daf",
+        "x": 480,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "d6551b9755993739",
+        "type": "mqtt out",
+        "z": "e9d7f2deb1161867",
+        "name": "Ventilador MQTT",
+        "topic": "iot2/ventilador",
+        "qos": "",
+        "retain": "",
+        "broker": "2485a6a2dc589daf",
+        "x": 490,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "4495ae4ebc379ea3",
+        "type": "function",
+        "z": "e9d7f2deb1161867",
+        "name": "Actualizar CPU y Memoria",
+        "func": "if (msg.topic === 'iot2/cpu' || msg.topic === 'iot2/memoria') {\n    // Publicar datos en la gráfica\n    return { payload: msg.payload };\n} else {\n    return null;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 200,
+        "wires": [
+            [
+                "3ccf2eff7bf2a70a"
+            ]
+        ]
+    },
+    {
+        "id": "bf932ab1818b66ca",
+        "type": "ui_switch",
+        "z": "e9d7f2deb1161867",
+        "name": "Ventilador",
+        "label": "Ventilador",
+        "tooltip": "",
+        "group": "503dd958e74ff5cc",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "wb_sunny",
+        "oncolor": "orange",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "brightness_3",
+        "offcolor": "dark blue",
+        "animate": true,
+        "className": "",
+        "x": 250,
+        "y": 440,
+        "wires": [
+            [
+                "d6551b9755993739"
+            ]
+        ]
+    },
+    {
+        "id": "f437dc0ea0f14423",
+        "type": "ui_switch",
+        "z": "e9d7f2deb1161867",
+        "name": "Máquina",
+        "label": "Máquina",
+        "tooltip": "",
+        "group": "503dd958e74ff5cc",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "",
+        "topicType": "str",
+        "style": "",
+        "onvalue": "encender",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "apagar",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 260,
+        "y": 380,
+        "wires": [
+            [
+                "44118ec50f3e0295"
+            ]
+        ]
+    },
+    {
+        "id": "5c2e4c326fb51237",
+        "type": "ui_gauge",
+        "z": "e9d7f2deb1161867",
+        "name": "CPU",
+        "group": "678c1733ec6d179d",
+        "order": 3,
+        "width": "0",
+        "height": "0",
+        "gtype": "gage",
+        "title": "CPU",
+        "label": "%",
+        "format": "{{value}}%",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00f1f5",
+            "#00e604",
+            "#ca3838"
+        ],
+        "seg1": "10",
+        "seg2": "30",
+        "className": "",
+        "x": 430,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "67b8fd5ed5938e84",
+        "type": "ui_gauge",
+        "z": "e9d7f2deb1161867",
+        "name": "Memoria",
+        "group": "7dd279d203b0b35c",
+        "order": 4,
+        "width": "0",
+        "height": "0",
+        "gtype": "gage",
+        "title": "Memoria",
+        "label": "%",
+        "format": "{{value}}%",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00f1f5",
+            "#00e604",
+            "#ca3838"
+        ],
+        "seg1": "10",
+        "seg2": "30",
+        "className": "",
+        "x": 440,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "3ccf2eff7bf2a70a",
+        "type": "ui_chart",
+        "z": "e9d7f2deb1161867",
+        "name": "CPU y Memoria",
+        "group": "a63b542195d214cc",
+        "order": 1,
+        "width": "9",
+        "height": "5",
+        "label": "CPU y Memoria",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": "1",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#ff7f0e"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 620,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2485a6a2dc589daf",
+        "type": "mqtt-broker",
+        "name": "Server",
+        "broker": "127.0.0.1",
+        "port": "1883",
+        "clientid": "Luis_LR",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "test",
+        "birthQos": "2",
+        "birthPayload": "Luis Armando Largo Ramirez",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "503dd958e74ff5cc",
+        "type": "ui_group",
+        "name": "Acciones",
+        "tab": "8d145879eb9cdcbf",
+        "order": 3,
+        "disp": true,
+        "width": "3",
+        "collapse": true,
+        "className": ""
+    },
+    {
+        "id": "678c1733ec6d179d",
+        "type": "ui_group",
+        "name": "Información",
+        "tab": "8d145879eb9cdcbf",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": true,
+        "className": ""
+    },
+    {
+        "id": "7dd279d203b0b35c",
+        "type": "ui_group",
+        "name": "Maquina",
+        "tab": "8d145879eb9cdcbf",
+        "order": 4,
+        "disp": true,
+        "width": "6",
+        "collapse": true,
+        "className": ""
+    },
+    {
+        "id": "a63b542195d214cc",
+        "type": "ui_group",
+        "name": "Histórico de Datos",
+        "tab": "8d145879eb9cdcbf",
+        "order": 2,
+        "disp": true,
+        "width": "10",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "8d145879eb9cdcbf",
+        "type": "ui_tab",
+        "name": "Iot",
+        "icon": "payment",
+        "disabled": false,
+        "hidden": false
+    }
+]
