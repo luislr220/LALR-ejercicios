@@ -15,13 +15,15 @@
         "qos": "2",
         "datatype": "auto",
         "broker": "2485a6a2dc589daf",
+        "nl": false,
+        "rap": false,
         "inputs": 0,
         "x": 160,
         "y": 80,
         "wires": [
             [
-                "4495ae4ebc379ea3",
-                "5c2e4c326fb51237"
+                "5c2e4c326fb51237",
+                "3ccf2eff7bf2a70a"
             ]
         ]
     },
@@ -34,13 +36,15 @@
         "qos": "2",
         "datatype": "auto",
         "broker": "2485a6a2dc589daf",
+        "nl": false,
+        "rap": false,
         "inputs": 0,
-        "x": 120,
+        "x": 160,
         "y": 160,
         "wires": [
             [
-                "4495ae4ebc379ea3",
-                "67b8fd5ed5938e84"
+                "67b8fd5ed5938e84",
+                "3ccf2eff7bf2a70a"
             ]
         ]
     },
@@ -50,8 +54,13 @@
         "z": "e9d7f2deb1161867",
         "name": "Máquina MQTT",
         "topic": "iot2/maquina",
-        "qos": "",
-        "retain": "",
+        "qos": "2",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
         "broker": "2485a6a2dc589daf",
         "x": 480,
         "y": 380,
@@ -63,31 +72,17 @@
         "z": "e9d7f2deb1161867",
         "name": "Ventilador MQTT",
         "topic": "iot2/ventilador",
-        "qos": "",
-        "retain": "",
+        "qos": "2",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
         "broker": "2485a6a2dc589daf",
         "x": 490,
         "y": 440,
         "wires": []
-    },
-    {
-        "id": "4495ae4ebc379ea3",
-        "type": "function",
-        "z": "e9d7f2deb1161867",
-        "name": "Actualizar CPU y Memoria",
-        "func": "if (msg.topic === 'iot2/cpu' || msg.topic === 'iot2/memoria') {\n    // Publicar datos en la gráfica\n    return { payload: msg.payload };\n} else {\n    return null;\n}",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 440,
-        "y": 200,
-        "wires": [
-            [
-                "3ccf2eff7bf2a70a"
-            ]
-        ]
     },
     {
         "id": "bf932ab1818b66ca",
@@ -162,7 +157,7 @@
         "type": "ui_gauge",
         "z": "e9d7f2deb1161867",
         "name": "CPU",
-        "group": "678c1733ec6d179d",
+        "group": "7dd279d203b0b35c",
         "order": 3,
         "width": "0",
         "height": "0",
@@ -242,10 +237,62 @@
         "outputs": 1,
         "useDifferentColor": false,
         "className": "",
-        "x": 620,
-        "y": 120,
+        "x": 460,
+        "y": 220,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "28c843405fc01a5c",
+        "type": "mqtt out",
+        "z": "e9d7f2deb1161867",
+        "name": "Pantalla MQTT",
+        "topic": "iot2/maquina",
+        "qos": "2",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "2485a6a2dc589daf",
+        "x": 480,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "104b2ce6abfae5f8",
+        "type": "ui_switch",
+        "z": "e9d7f2deb1161867",
+        "name": "Máquina",
+        "label": "Pantalla",
+        "tooltip": "",
+        "group": "503dd958e74ff5cc",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "",
+        "topicType": "str",
+        "style": "",
+        "onvalue": "encender",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "apagar",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 260,
+        "y": 320,
+        "wires": [
+            [
+                "28c843405fc01a5c"
+            ]
         ]
     },
     {
@@ -284,17 +331,6 @@
         "order": 3,
         "disp": true,
         "width": "3",
-        "collapse": true,
-        "className": ""
-    },
-    {
-        "id": "678c1733ec6d179d",
-        "type": "ui_group",
-        "name": "Información",
-        "tab": "8d145879eb9cdcbf",
-        "order": 1,
-        "disp": true,
-        "width": "6",
         "collapse": true,
         "className": ""
     },
